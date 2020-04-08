@@ -6,9 +6,9 @@ This is Lab 02 for Code Fellows 301 course. The purpose of this lab is to gain a
 
 This is a record of the estimated time required to complete each feature, the start and stop times and then the actual time it took to complete.
 
-- Number and name of feature: 
-- Estimate of time needed to complete: 
-- Start time: 
+- Number and name of feature: #1 - Display Images
+- Estimate of time needed to complete: 2.5 hours
+- Start time: 9:00am, 4/8/2020
 - Finish time: 
 - Actual time needed to complete: 
 

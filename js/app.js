@@ -21,7 +21,6 @@ const renderImages = (item) => {
       <h2>${item.title}</h2>
       <img src=${item.image_url} alt=${item.keyword}>
       <p>${item.description}</p>
-      <p>${item.horns}</p>
   `);
 }
 
@@ -56,7 +55,7 @@ const clickHandler = (event) => {
   $(item).show();
 }
 
-$('select').on('click', clickHandler)
+$('select').on('change', clickHandler)
 
 
 

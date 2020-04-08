@@ -2,12 +2,28 @@ h1 {
   text-align: center;
 }
 
+header div {
+  display: flex;
+  justify-content: center;
+}
+
+select {
+  font-size: 16px;
+}
+
 .images {
   box-sizing: border-box;
-  margin: 5px;
-  width: 190px;
-  height: 500px;
+  border: 1px solid black;
+  padding: 3px;
+  width: 196px;
+  margin: 2px;
+  height: 450px;
   float: left;
+}
+
+.images h2 {
+  text-align: center;
+  height: 60px;
 }
 
 footer {

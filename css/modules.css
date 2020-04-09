@@ -5,6 +5,10 @@ h1 {
   font-family: 'Shadows Into Light', cursive;
 }
 
+li {
+  text-decoration: none;
+}
+
 img {
   width: 100%;
 }

@@ -2,6 +2,8 @@
 
 // global array of constructor objects
 const imageArray = [];
+// default ajax call path
+let defaultValue = 'page-1';
 
 // constructor function that creates image objects
 function ImageGallery(image_url, title, description, keyword, horns) {
@@ -25,28 +27,11 @@ const renderImages = (item) => {
 }
 
 // adds drop down menu items
-const handleDropdown = () => {
-  imageArray.forEach( (idx) => {
-    $('select').append(
-      `<option value="${idx.keyword}">${idx.keyword}</option>`
-    )
+const handleDropdown = (newArr) => {
+  newArr.forEach( (idx) => {
+    $('select').append(`<option value="${idx.keyword}">${idx.keyword}</option>`)
   });
 };
-
-// Pulls data from page-1.json file and runs through constructor
-$(function() {
-  $.ajax("data/page-1.json").then( data => {
-    data.forEach( (idx) => {
-      new ImageGallery(idx.image_url, idx.title, idx.description, idx.keyword, idx.horns)
-      }
-    );
-
-    imageArray.forEach( (element) => {
-      renderImages(element);
-    });
-    handleDropdown();
-  });
-})
 
 // handles click event
 const clickHandler = (event) => {
@@ -55,7 +40,58 @@ const clickHandler = (event) => {
   $(item).show();
 }
 
-$('select').on('change', clickHandler)
+$('select').on('change', clickHandler);
+
+// const pageOneGallery = () => {
+//   $('#photo-gallery').html('');
+// }
+
+// functions to refresh page and reload with new set of images
+
+const oldGallery = (event) => {
+  $('#photo-gallery').empty();
+  $('select').html('');
+  event.preventDefault();
+  defaultValue = 'page-1';
+  callAjax(defaultValue);
+}
+
+const newGallery = (event) => {
+  $('#photo-gallery').empty();
+  $('select').html('');
+  event.preventDefault();
+  defaultValue = 'page-2';
+  callAjax(defaultValue);
+}
+
+// $('#page1').on('click', pageOneGallery);
+$('#page1').on('click', oldGallery);
+$('#page2').on('click', newGallery);
+
+// Pulls data from .json file, dependant on variable, and runs through constructor
+function callAjax(defaultValue) {
+  $.ajax(`data/${defaultValue}.json`).then( data => {
+    let newImageArray = [];
+    data.forEach( (idx) => {
+      let hornedCreature = new ImageGallery(idx.image_url, idx.title, idx.description, idx.keyword, idx.horns)
+      newImageArray.push(hornedCreature);
+      }
+    );
+
+    newImageArray.forEach( (element) => {
+      renderImages(element);
+    });
+    handleDropdown(newImageArray);
+  });
+}  
+
+callAjax(defaultValue);
+
+
+
+
+
+
 
 
 

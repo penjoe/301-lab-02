@@ -39,8 +39,8 @@ This is a record of the estimated time required to complete each feature, the st
 - Number and name of feature: #2 - Templating
 - Estimate of time needed to complete: 1 hour
 - Start time: 12:45pm 4/9/2020
-- Finish time:
-- Actual time needed to complete:
+- Finish time: 1:45pm
+- Actual time needed to complete: 1 hour
 
 ## **Built With**
 - HTML5

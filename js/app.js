@@ -16,21 +16,19 @@ function ImageGallery(image_url, title, description, keyword, horns) {
   imageArray.push(this);
 }
 
-// function used to render images to page
+// function that handles the mustache template
 const renderImages = (item) => {
-  $('#photo-gallery').append(`
-    <article class="images ${item.keyword}">
-      <h2>${item.title}</h2>
-      <img src=${item.image_url} alt=${item.keyword}>
-      <p>${item.description}</p>
-  `);
+  const template = $('#template').html();
+  const renderTemplate = Mustache.render(template, item);
+  $('#photo-gallery').append(renderTemplate);
 }
 
 // adds drop down menu items
 const handleDropdown = (newArr) => {
-  newArr.forEach( (idx) => {
-    $('select').append(`<option value="${idx.keyword}">${idx.keyword}</option>`)
-  });
+  $('select').append(`<option value="default">Filter by Keyword</option>`);
+    newArr.forEach( (idx) => {
+      $('select').append(`<option value="${idx.keyword}">${idx.keyword}</option>`)
+    });
 };
 
 // handles click event

@@ -48,6 +48,12 @@ This is a record of the estimated time required to complete each feature, the st
 - Finish time: 8:30px
 - Actual time needed to complete: 1.5 hours
 
+- Number and name of feature: #4 - image sorting
+- Estimate of time needed to complete: 2.5 hours
+- Start time: 8:30pm 4/11/2020
+- Finish time: 11:30pm
+- Actual time needed to complete: 3 hours
+
 ## **Built With**
 - HTML5
 - CSS3

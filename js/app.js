@@ -1,7 +1,7 @@
 'use strict';
 
 // global array of constructor objects
-const imageArray = [];
+let imageArray = [];
 // default ajax call path
 let defaultValue = 'page-1';
 
@@ -12,8 +12,6 @@ function ImageGallery(image_url, title, description, keyword, horns) {
   this.description = description;
   this.keyword = keyword;
   this.horns = horns;
-
-  imageArray.push(this);
 }
 
 // function that handles the mustache template
@@ -24,15 +22,25 @@ const renderImages = (item) => {
 }
 
 // adds drop down menu items
-const handleDropdown = (newArr) => {
+
+const handleDropdown = () => {
+  let selectItems = [];
+  imageArray.forEach((idx) => {
+    if (!selectItems.includes(idx.keyword))
+    selectItems.push(idx.keyword);
+  });
   $('select').append(`<option value="default">Filter by Keyword</option>`);
-    newArr.forEach( (idx) => {
-      $('select').append(`<option value="${idx.keyword}">${idx.keyword}</option>`)
-    });
+  selectItems.forEach((value) => {
+    let menuItems = `<option value="${value}">${value}</option>`;
+
+    $('select').append(menuItems);
+  });
 };
 
 // handles click event
 const clickHandler = (event) => {
+  event.preventDefault();
+  $('[name="filters"]').prop('checked', false);
   $('.images').hide();
   let item = `.${event.target.value}`;
   $(item).show();
@@ -40,13 +48,9 @@ const clickHandler = (event) => {
 
 $('select').on('change', clickHandler);
 
-// const pageOneGallery = () => {
-//   $('#photo-gallery').html('');
-// }
-
 // functions to refresh page and reload with new set of images
 
-const oldGallery = (event) => {
+const pageOneGallery = (event) => {
   $('#photo-gallery').empty();
   $('select').html('');
   event.preventDefault();
@@ -54,7 +58,7 @@ const oldGallery = (event) => {
   callAjax(defaultValue);
 }
 
-const newGallery = (event) => {
+const pageTwoGallery = (event) => {
   $('#photo-gallery').empty();
   $('select').html('');
   event.preventDefault();
@@ -63,51 +67,52 @@ const newGallery = (event) => {
 }
 
 // $('#page1').on('click', pageOneGallery);
-$('#page1').on('click', oldGallery);
-$('#page2').on('click', newGallery);
+$('#page1').on('click', pageOneGallery);
+$('#page2').on('click', pageTwoGallery);
+
+// function to sort images by title
+const titleSort = (event) => {
+  event.preventDefault();
+  $('#photo-gallery').empty();
+  imageArray.sort( (a,b) => {
+    return (a.title.toLowerCase() > b.title.toLowerCase()) ? 1:-1;
+  });
+  imageArray.forEach( value => {
+    renderImages(value);
+  })
+}
+
+$('#sort-title').on('click', titleSort);
+
+// function to sort images by # of horns
+const sortHorns = (event) => {
+  event.preventDefault();
+  $('#photo-gallery').empty();
+  imageArray.sort( (a,b) => {
+    return (a.horns > b.horns) ? 1:-1;
+  });
+  imageArray.forEach( value => {
+    renderImages(value);
+  })
+}
+
+$('#sort-horns').on('click', sortHorns);
 
 // Pulls data from .json file, dependant on variable, and runs through constructor
 function callAjax(defaultValue) {
   $.ajax(`data/${defaultValue}.json`).then( data => {
-    let newImageArray = [];
+    imageArray = [];
     data.forEach( (idx) => {
       let hornedCreature = new ImageGallery(idx.image_url, idx.title, idx.description, idx.keyword, idx.horns)
-      newImageArray.push(hornedCreature);
+      imageArray.push(hornedCreature);
       }
     );
 
-    newImageArray.forEach( (element) => {
+    imageArray.forEach( (element) => {
       renderImages(element);
     });
-    handleDropdown(newImageArray);
+    handleDropdown(imageArray);
   });
 }  
 
 callAjax(defaultValue);
-
-
-
-
-
-
-
-
-
-//prototype of constructor function that renders each image to page, not currently working
-// ImageGallery.prototype.appendImages = () => {
-//   $('#photo-gallery').append(`
-//     <h2>${this.title}</h2>
-//     <img src=${this.image_url} alt=${this.keyword}></img>
-//     <p>${this.description}</p>
-//     <p>${this.horns}</p>
-//   `);
-// }
-
-// function used to render images to page, not currently working
-// function render() {
-//   for (let i = 0; i < imageArray.length; i++) {
-//     imageArray[i].appendImages();
-//   };
-// }
-
-// render();

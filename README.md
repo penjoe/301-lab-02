@@ -42,6 +42,12 @@ This is a record of the estimated time required to complete each feature, the st
 - Finish time: 1:45pm
 - Actual time needed to complete: 1 hour
 
+- Number and name of feature: #3 - Flexbox
+- Estimate of time needed to complete: 2 hours
+- Start time: 7:00pm 4/11/2020
+- Finish time: 8:30px
+- Actual time needed to complete: 1.5 hours
+
 ## **Built With**
 - HTML5
 - CSS3
@@ -56,8 +62,8 @@ Currently running version 1.0.0
 
 ## **Authors**
 
-- Joe Pennock - primary author - [GitHub](https://github.com/penjoe)
-- Peng Chen - pair-programming partner - [GitHub](https://github.com/PengChen11)
+- Joe Pennock - primary author - [GitHub](https://github.com/penjoe);
+- Peng Chen - pair-programming partner - [GitHub](https://github.com/PengChen11);
 
 ## **License**
 
